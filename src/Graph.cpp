@@ -63,7 +63,7 @@ void Graph::generate_graph() {
             }
             tmp.clear();
             tmp.shrink_to_fit();
-                }
+        }
         bloomCnt--;
         if (index == remaining_bloom.size() - 1) {
             remaining_bloom.pop_back();
