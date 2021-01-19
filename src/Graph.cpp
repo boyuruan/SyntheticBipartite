@@ -141,7 +141,7 @@ void Graph::generate_graph() {
 void Graph::output_graph(char* file) {
     ofstream fout;
     string graph_file = string(file) + "/graph.txt";
-    fout.open(file, ios::out);
+    fout.open(graph_file.c_str(), ios::out);
     fout << "%\n%\n";
     int u = 0, v = 1;
     int bloomCnt = n1 * (n1 - 1) / 2;
