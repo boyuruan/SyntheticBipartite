@@ -1,4 +1,5 @@
 #include "Graph.h"
+#include "headers.h"
 
 int getNextChar(const char *para) {
     int i = 0;
@@ -46,7 +47,7 @@ struct Para parse_args(int argc, char **argv) {
         if (strcmp(para, "n1") == 0) {
             upperLevel = atoi(arg);
             printf("%d\n", upperLevel);
-        } else if (strcmp(para, "n1") == 0) {
+        } else if (strcmp(para, "n2") == 0) {
             lowerLevel = atoi(arg);
             printf("%d\n", lowerLevel);
         } else if (strcmp(para, "bloom") == 0) {
@@ -76,6 +77,9 @@ struct Para parse_args(int argc, char **argv) {
 
 int main(int argc, char **argv) {
     struct Para paras = parse_args(argc, argv);
-
+    Graph g(paras.upperLevel, paras.lowerLevel, paras.bloomSize, paras.overLap,
+            paras.prob);
+    g.generate_graph();
+    g.output_graph(paras.file);
     return 0;
 }

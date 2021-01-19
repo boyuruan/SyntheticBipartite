@@ -21,7 +21,7 @@ public:
 
     void generate_graph();
 
-    void output_graph();
+    void output_graph(char *file);
 };
 
 #endif

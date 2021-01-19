@@ -8,14 +8,11 @@
 #include <random>
 #include <sstream>
 #include <stdio.h>
+#include <unordered_map>
 #include <unordered_set>
 #include <vector>
 
 using namespace std;
-
-int getNextChar(const char *para);
-
-void getNextWord(const char *para, char *word);
 
 struct Para {
     int upperLevel;
