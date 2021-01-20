@@ -19,7 +19,7 @@ public:
         : n1(_n1), n2(_n2), bloomSize(_bloomSize), overLap(_overLap),
           prob(_prob) {}
 
-    void generate_graph();
+    void generate_graph(enum Strategy s);
 
     void output_graph(char *file);
 };

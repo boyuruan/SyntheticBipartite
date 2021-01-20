@@ -14,6 +14,8 @@
 
 using namespace std;
 
+enum Strategy { fix, step };
+
 struct Para {
     int upperLevel;
     int lowerLevel;
@@ -21,6 +23,7 @@ struct Para {
     int overLap;
     double prob;
     char file[255];
+    enum Strategy strategy;
 };
 
 struct Para parse_args(int argc, char **argv);

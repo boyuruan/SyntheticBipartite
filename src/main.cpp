@@ -32,6 +32,7 @@ struct Para parse_args(int argc, char **argv) {
     int bloomSize = 0;
     int overLap = 0;
     double prob = 1.0;
+    enum Strategy strategy = Strategy::fix;
     char file[255];
     int i = 0;
     int cnt = 1;
@@ -62,6 +63,13 @@ struct Para parse_args(int argc, char **argv) {
         } else if (strcmp(para, "file") == 0) {
             getNextWord(arg, file);
             printf("%s\n", file);
+        } else if (strcmp(para, "strategy") == 0) {
+            printf("%s\n", arg);
+            if (strcmp(arg, "fix") == 0) {
+                strategy = Strategy::fix;
+            } else if (strcmp(arg, "step") == 0) {
+                strategy = Strategy::step;
+            }
         }
     }
 
@@ -71,6 +79,7 @@ struct Para parse_args(int argc, char **argv) {
     rtn.overLap = overLap;
     rtn.prob = prob;
     strcpy(rtn.file, file);
+    rtn.strategy = strategy;
 
     return rtn;
 }
@@ -79,7 +88,7 @@ int main(int argc, char **argv) {
     struct Para paras = parse_args(argc, argv);
     Graph g(paras.upperLevel, paras.lowerLevel, paras.bloomSize, paras.overLap,
             paras.prob);
-    g.generate_graph();
+    g.generate_graph(paras.strategy);
     g.output_graph(paras.file);
     return 0;
 }
