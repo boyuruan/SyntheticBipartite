@@ -1,1 +1,1 @@
-add_library(GRAPH Graph.cpp)
+add_library(GRAPH Graph.cpp StarGraph.cpp)
