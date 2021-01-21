@@ -69,6 +69,8 @@ struct Para parse_args(int argc, char **argv) {
                 strategy = Strategy::fix;
             } else if (strcmp(arg, "step") == 0) {
                 strategy = Strategy::step;
+            } else if (strcmp(arg, "grad") == 0) {
+                strategy = Strategy::grad;
             }
         }
     }

@@ -14,7 +14,7 @@
 
 using namespace std;
 
-enum Strategy { fix, step };
+enum Strategy { fix, step, grad };
 
 struct Para {
     int upperLevel;
