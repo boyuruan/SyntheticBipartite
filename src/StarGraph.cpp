@@ -5,9 +5,9 @@
 void StarGraph::generate_graph() {
     random_device rd;
     mt19937_64 gen(rd());
-    uniform_int_distribution<> dis_large((int) floor(0.8 * largeThres),
+    uniform_int_distribution<> dis_large((int)floor(0.8 * largeThres),
                                          largeThres);
-    uniform_int_distribution<> dis_small((int) floor(0.5 * smallThres),
+    uniform_int_distribution<> dis_small((int)floor(0.5 * smallThres),
                                          smallThres);
     uniform_int_distribution<long long> dis_edge(0, 1);
     long long i = 0;
@@ -57,7 +57,7 @@ void StarGraph::generate_graph() {
     i = largeEdge;
     long long end = largeEdge + 3 * bfs[0];
     dis_edge.param(
-            uniform_int_distribution<long long>::param_type(end, edgeNumber - 1));
+        uniform_int_distribution<long long>::param_type(end, edgeNumber - 1));
     for (long long w = 0; w < largeEdge - 1; w++) {
         for (; i < end; i++) {
             int B = dis_small(gen);
@@ -72,23 +72,34 @@ void StarGraph::generate_graph() {
                     bfs[eid]++;
                     e[e1.first].push_back(e2.second);
                     edgeIDEndpointMap[edgeNumber] =
-                            make_pair(e1.first, e2.second);
+                        make_pair(e1.first, e2.second);
                     bfs.push_back(1);
                     edgeNumber++;
                     e[e2.first].push_back(e1.second);
                     edgeIDEndpointMap[edgeNumber] =
-                            make_pair(e2.first, e1.second);
+                        make_pair(e2.first, e1.second);
                     edgeNumber++;
                 }
             }
         }
         end += bfs[w + 1];
         long long original_b = dis_edge.b();
-        dis_edge.param(uniform_int_distribution<long long>::param_type(
-                end, original_b));
+        dis_edge.param(
+            uniform_int_distribution<long long>::param_type(end, original_b));
         // printf("%lu\n", edgeIDEndpointMap.size());
-
     }
 
     printf("%lld edges in total.\n", edgeNumber);
+}
+
+void StarGraph::output_graph(char *file) {
+    string filename = string(file) + "/graph.txt";
+    FILE *f = fopen(filename.c_str(), "w");
+    fprintf(f, "%\n%\n");
+    for (long long i = 0, size = e.size(); i < size; i++) {
+        for (long long j = 0, psize = e[i].size(); j < psize; j++) {
+            fprintf(f, "%lld\t%lld\n", i, e[i][j]);
+        }
+    }
+    fclose(f);
 }

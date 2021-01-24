@@ -30,6 +30,8 @@ public:
         : largeEdge(l), largeThres(lt), smallThres(st) {}
 
     void generate_graph();
+
+    void output_graph(char *file);
 };
 
 #endif
