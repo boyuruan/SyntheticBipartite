@@ -14,14 +14,20 @@ struct hash_pair {
 class StarGraph {
 private:
     long long edgeNumber{0};
-    int largeEdge{0};
+    long long largeEdge{0};
+    int largeThres{0};
+    int smallThres{0};
+    vector<int> bfs;
     vector<vector<long long>> e;
-    unordered_map<long long, pair<int, int>> edgeIDEndpointMap;
+    unordered_map<long long, pair<long long, long long>> edgeIDEndpointMap;
 
 public:
     StarGraph() {}
 
     StarGraph(int l) : largeEdge(l) {}
+
+    StarGraph(int l, int lt, int st)
+        : largeEdge(l), largeThres(lt), smallThres(st) {}
 
     void generate_graph();
 };

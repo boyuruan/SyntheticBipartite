@@ -1,4 +1,5 @@
 #include "Graph.h"
+#include "StarGraph.h"
 #include "headers.h"
 
 int getNextChar(const char *para) {
@@ -33,7 +34,7 @@ struct Para parse_args(int argc, char **argv) {
     int overLap = 0;
     double prob = 1.0;
     enum Strategy strategy = Strategy::fix;
-    char file[255];
+    char file[255] = "";
     int i = 0;
     int cnt = 1;
     char para[31];
@@ -87,10 +88,13 @@ struct Para parse_args(int argc, char **argv) {
 }
 
 int main(int argc, char **argv) {
-    struct Para paras = parse_args(argc, argv);
-    Graph g(paras.upperLevel, paras.lowerLevel, paras.bloomSize, paras.overLap,
-            paras.prob);
-    g.generate_graph(paras.strategy);
-    g.output_graph(paras.file);
+    // struct Para paras = parse_args(argc, argv);
+    // Graph g(paras.upperLevel, paras.lowerLevel, paras.bloomSize,
+    // paras.overLap,
+    //         paras.prob);
+    // g.generate_graph(paras.strategy);
+    // g.output_graph(paras.file);
+    StarGraph g(atoi(argv[1]), atoi(argv[2]), atoi(argv[3]));
+    g.generate_graph();
     return 0;
 }
