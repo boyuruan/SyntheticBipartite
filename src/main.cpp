@@ -96,5 +96,6 @@ int main(int argc, char **argv) {
     // g.output_graph(paras.file);
     StarGraph g(atoi(argv[1]), atoi(argv[2]), atoi(argv[3]));
     g.generate_graph();
+    g.output_graph(argv[4]);
     return 0;
 }

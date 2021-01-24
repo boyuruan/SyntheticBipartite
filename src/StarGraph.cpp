@@ -95,7 +95,7 @@ void StarGraph::generate_graph() {
 void StarGraph::output_graph(char *file) {
     string filename = string(file) + "/graph.txt";
     FILE *f = fopen(filename.c_str(), "w");
-    fprintf(f, "%\n%\n");
+    fprintf(f, "%%\n%%\n");
     for (long long i = 0, size = e.size(); i < size; i++) {
         for (long long j = 0, psize = e[i].size(); j < psize; j++) {
             fprintf(f, "%lld\t%lld\n", i, e[i][j]);
