@@ -3,6 +3,10 @@
 
 #include "headers.h"
 
+#define MAXN 2000000000
+#define MAXN1 1000000000
+#define INC_FACTOR 1.2
+
 struct hash_pair {
     template <class T1, class T2> size_t operator()(const pair<T1, T2> &p) {
         auto h1 = hash<T1>()(p.first);
@@ -31,7 +35,17 @@ public:
 
     void generate_graph();
 
+    void generate_star();
+
     void output_graph(char *file);
+
+    void assessment();
+};
+
+class IntNode {
+public:
+    int val, id;
+    bool operator<(const IntNode &node) const;
 };
 
 #endif
