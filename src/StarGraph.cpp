@@ -116,7 +116,64 @@ void StarGraph::output_graph(char *file) {
     fclose(f);
 }
 
-void StarGraph::generate_star() {}
+void StarGraph::generate_star() {
+    random_device rd;
+    mt19937_64 gen(rd());
+    uniform_int_distribution<> dis_small((int)(0.5 * smallThres), smallThres);
+    bfs.push_back(largeThres);
+    vector<long long> tmp;
+    tmp.push_back(0);
+    e.push_back(tmp);
+    int idx_vertex = 1;
+    for (int i = 0; i < largeThres; i++) {
+        vector<long long> tmp;
+        tmp.push_back(idx_vertex);
+        e.push_back(tmp);
+        bfs.push_back(1);
+        e[0].push_back(idx_vertex);
+        bfs.push_back(1);
+        e[idx_vertex].push_back(0);
+        bfs.push_back(1);
+        idx_vertex++;
+    }
+    long long idx_edge = 1;
+    int n1 = idx_vertex;
+    for (int i = 1; i < n1; i++) {
+        int B = dis_small(gen);
+        if (B > bfs[idx_edge]) {
+            for (int j = 0; j < B - bfs[idx_edge++]; j++) {
+                vector<long long> tmp;
+                tmp.push_back(idx_vertex);
+                e.push_back(tmp);
+                e[i].push_back(idx_vertex);
+                e[idx_vertex].push_back(i);
+                idx_vertex++;
+            }
+        }
+        B = dis_small(gen);
+        if (B > bfs[idx_edge]) {
+            for (int j = 0; j < B - bfs[idx_edge++]; j++) {
+                vector<long long> tmp;
+                tmp.push_back(idx_vertex);
+                e.push_back(tmp);
+                e[0].push_back(idx_vertex);
+                e[idx_vertex].push_back(i);
+                idx_vertex++;
+            }
+        }
+        B = dis_small(gen);
+        if (B > bfs[idx_edge]) {
+            for (int j = 0; j < B - bfs[idx_edge++]; j++) {
+                vector<long long> tmp;
+                tmp.push_back(idx_vertex);
+                e.push_back(tmp);
+                e[i].push_back(idx_vertex);
+                e[idx_vertex].push_back(0);
+                idx_vertex++;
+            }
+        }
+    }
+}
 
 void StarGraph::assessment() {
     int n1 = e.size();

@@ -94,8 +94,9 @@ int main(int argc, char **argv) {
     //         paras.prob);
     // g.generate_graph(paras.strategy);
     // g.output_graph(paras.file);
-    StarGraph g(atoi(argv[1]), atoi(argv[2]), atoi(argv[3]));
-    g.generate_graph();
+    StarGraph g(1, atoi(argv[1]), atoi(argv[2]));
+    // g.generate_graph();
+    g.generate_star();
     // g.output_graph(argv[4]);
     g.assessment();
     return 0;
