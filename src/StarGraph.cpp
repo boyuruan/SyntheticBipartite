@@ -18,6 +18,7 @@ void StarGraph::generate_graph() {
     uniform_int_distribution<> dis_small((int)floor(0.5 * smallThres),
                                          smallThres);
     uniform_int_distribution<long long> dis_edge(0, 1);
+    unordered_set<pair<long long, long long>, hash_pair> existingEdges;
     long long i = 0;
     for (; i < largeEdge; i++) {
         bfs.push_back(dis_large(gen));
@@ -72,22 +73,33 @@ void StarGraph::generate_graph() {
             if (B <= bfs[i]) {
                 continue;
             } else {
+                unordered_set<long long> uset;
                 for (int t = 0; t < B - bfs[i]; t++) {
                     long long eid = dis_edge(gen);
+                    if (uset.count(eid) == 1) {
+                        t--;
+                        continue;
+                    } else {
+                        uset.insert(eid);
+                    }
                     pair<long long, long long> e1 = edgeIDEndpointMap[i];
                     pair<long long, long long> e2 = edgeIDEndpointMap[eid];
                     bfs[i]++;
                     bfs[eid]++;
-                    e[e1.first].push_back(e2.second);
-                    edgeIDEndpointMap[edgeNumber] =
-                        make_pair(e1.first, e2.second);
-                    bfs.push_back(1);
-                    edgeNumber++;
-                    e[e2.first].push_back(e1.second);
-                    edgeIDEndpointMap[edgeNumber] =
-                        make_pair(e2.first, e1.second);
-                    edgeNumber++;
+                    if (existingEdges.count(make_pair(e1.first, e2.second)) ==
+                        0) {
+                        e[e1.first].push_back(e2.second);
+                        existingEdges.insert(make_pair(e1.first, e2.second));
+                        edgeNumber++;
+                    }
+                    if (existingEdges.count(make_pair(e2.first, e1.second)) ==
+                        0) {
+                        e[e2.first].push_back(e1.second);
+                        existingEdges.insert(make_pair(e2.first, e1.second));
+                        edgeNumber++;
+                    }
                 }
+                uset.clear();
             }
         }
         end += bfs[w + 1];
